@@ -1,4 +1,4 @@
-require '../lib/main'
+require '../lib/enumerable'
 
 RSpec.describe Enumerable do
     describe "#each" do
