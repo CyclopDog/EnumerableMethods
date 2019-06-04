@@ -63,27 +63,33 @@ module Enumerable
 
     def my_count
         count = 0
-        if self.class == Array 
-            self.my_each do |x|
-                if yield(x) == true 
-                    count+=1
+        if block_given?
+            if self.class == Array
+                self.my_each do |x|
+                    if yield(x) == true 
+                        count+=1
+                    end
+                end
+            end 
+            if self.class == Hash
+                self.my_each do |x,y|
+                    if yield(x,y) == true 
+                        count+=1
+                    end 
                 end
             end
-        end 
-        if self.class == Hash
-            self.my_each do |x,y|
-                if yield(x,y) == true 
-                    count+=1
-                end 
+        else
+            self.my_each do |x|
+                count+=1
             end
-        end 
+        end
         count
     end
 
     def my_map
         arr =[]
         i = 0 
-        if self.class == Array 
+        if self.class == Array
             self.my_each do |x|
                 arr[i] = yield(x)
                 i += 1 
@@ -107,3 +113,5 @@ puts ""
 puts [1,2,3,4,5].my_count { |i| i > 4 }
 puts ""
 puts [1,2,3].my_map { |i| i + 1 }
+puts ""
+puts [1,2,3].my_count
